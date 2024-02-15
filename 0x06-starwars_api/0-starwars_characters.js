@@ -12,6 +12,7 @@ const requestCharacters = async () => {
     request(filmEndPoint, (err, res, body) => {
       if (err || res.statusCode !== 200) {
         console.error('Error: ', err, '| StatusCode: ', res.statusCode);
+        resolve(); // Resolve even in case of error to avoid hanging
       } else {
         const jsonBody = JSON.parse(body);
         people = jsonBody.characters;
@@ -28,6 +29,7 @@ const requestNames = async () => {
         request(p, (err, res, body) => {
           if (err || res.statusCode !== 200) {
             console.error('Error: ', err, '| StatusCode: ', res.statusCode);
+            resolve(); // Resolve even in case of error to avoid hanging
           } else {
             const jsonBody = JSON.parse(body);
             names.push(jsonBody.name);
